@@ -11,11 +11,13 @@
 
 <script type="text/javascript">
     $.router({
-        root: 'loc/web',
+        root: 'http://localhost:63342/',
         routes: {
             ':part(/:type/:bar)': 'jamPart',
             ':part/:type': 'jamPart',
+            ':part/y:type': 'jamPart',
             ':part(/:type)': 'jamPart',
+            ':part/:---$%type_-6': 'jamPart',
             'load/:file': 'loadFile'
         },
         jamPart: function (part, type) {
