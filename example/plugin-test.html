@@ -5,11 +5,76 @@
     <title>plugin-test</title>
     <script type="text/javascript" src="../static/script/zepto.js"></script>
     <script type="text/javascript" src="../static/script/zepto-router.js"></script>
+    <style type="text/css">
+        .wrap {
+            width: 500px;
+            /*height: 400px;*/
+            position: absolute;
+            top: 20%;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            background: white;
+            border-radius: 4px;
+            box-shadow: gray 0 0 50px 3px;
+        }
+        .position {
+            padding: 10px 8px;
+        }
+        .man>div, .homework>div {
+            padding: 10px 15px;
+        }
+        .man-title, .homework-title {
+            background: #bbb;
+        }
+        .man>div[data-type], .homework>div[data-type] {
+            cursor: pointer;
+        }
+        .man>div[data-type]:hover, .homework>div[data-type]:hover {
+            background: #ccc;
+            color: white;
+        }
+    </style>
 </head>
 <body>
-<div id="test">test</div>
+<div class="wrap">
+    <div id="position" class="position"></div>
+    <section id="man" class="man">
+        <div class="man-title"><strong>个人中心</strong></div>
+        <div data-type="info">个人信息</div>
+        <div data-type="setting">设置中心</div>
+    </section>
+    <section id="homework" class="homework">
+        <div class="homework-title"><strong>教学作业</strong></div>
+        <div data-type="unhand">未交作业</div>
+        <div data-type="feedback">作业反馈</div>
+    </section>
+</div>
 
 <script type="text/javascript">
+    var $pos = $('#position');
+    function setText(type) {
+        var title = '';
+        switch (type) {
+            case 'info': title = '个人信息';
+                $pos.text('您目前所在位置：个人中心>个人信息');
+                break;
+            case 'setting': title = '个人设置';
+                $pos.text('您目前所在位置：个人中心>个人设置');
+                break;
+            case 'unhand':
+                title = '未交作业';
+                $pos.text('您目前所在位置：教学作业>未交作业');
+                break;
+            case 'feedback':
+                title = '作业反馈';
+                $pos.text('您目前所在位置：教学作业>作业反馈');
+                break;
+            default : console.log('找不到路径');
+        }
+        return title;
+    }
+
     $.router({
         root: 'http://localhost:3000/',
         routes: {
@@ -17,14 +82,33 @@
             ':part/:type': 'jamPart',
             ':part/y:type': 'jamPart',
             ':part(/:type)': 'jamPart',
-            ':part/:---$%type_-6': 'jamPart',
             'load/:file': 'loadFile'
         },
         jamPart: function (part, type) {
-
+            console.log('jampart');
+            console.log(part, type);
+            document.title = setText(type);
         },
         loadFile: function (file) {
 
+        }
+    });
+    $('#man').click(function (e) {
+        var data_type = $(e.target).attr('data-type'), title = '';
+        if(data_type){
+            title = setText(data_type);
+            $.navigate('man/' + data_type, title, {
+                replace: false
+            });
+        }
+    });
+    $('#homework').click(function (e) {
+        var data_type = $(e.target).attr('data-type'), title = '';
+        if(data_type){
+            title = setText(data_type);
+            $.navigate('homework/' + data_type, title, {
+                replace: false
+            });
         }
     });
 </script>
