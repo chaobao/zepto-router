@@ -1,4 +1,4 @@
-# zepto-router#
+# zepto-router
 一个zepto插件，利用HTML5 History API实现的路由控制插件，适用于移动端单页面应用。
 需要后台支持，当浏览器访问一个地址时，服务器返回的是这个单页面。前端路由由这个单页面来控制。
 
@@ -10,17 +10,18 @@ $.router(option);
 $.navigate(segment, title, option);
 ```
 
-接口调用
+##接口调用
 
 ```javascript
 $.router(option);
 ```
 
 #### 参数
+```
 @option
     root: 根路径
     routes: 路径对象
-
+```
 #### routes 语法
 routes有特定的语法，类似于Backbone.Router的语法<br />
 routes是一个JavaScript对像<br />
