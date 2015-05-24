@@ -10,7 +10,7 @@ $.router(option);
 $.navigate(segment, title, option);
 ```
 
-##接口调用
+####接口调用
 
 ```javascript
 $.router(option);
@@ -26,11 +26,13 @@ $.router(option);
 routes有特定的语法，类似于Backbone.Router的语法<br />
 routes是一个JavaScript对像<br />
 routes属性名为一个指定语法字符串，router插件在运行时将其解析成正则表达式。<br />
+
 解析规则如下：<br />
 规则一：`":part"`匹配单个路径<br />
 规则二：``"(/:type)"`匹配可选单个路径<br />
 规则三：`"p:page"`匹配组合单个路径<br />
 目前路由规则只有三个，规则可以互相组合。<br />
+
 组合例子：<br />
 1.路由`":part"`可以匹配`man`<br />
 2.路由`"part(/:type)"`可以匹配路径`part`或者路径`part/man`<br />
