@@ -63,21 +63,23 @@
         });
     }
 
+    function _runCallback (arg) {
+        _global.callback[callback].apply(null, arg);
+    }
+
     function _testUrl (route) {
         var i,
             l = _global.routesArr.length,
             routeRegExp = null,
             callback = null;
         for(i = 0; i < l; i ++){
-            if(_global.routesArr[i][0].test(route)) {
+            if(_global.routesArr[i][0].test(route)) { // 只匹配第一个符合条件的路由
                 callback = _global.routesArr[i][1];
                 routeRegExp = _global.routesArr[i][0];
                 break;
             }
         }
-        _global.callback[callback].apply(null, _getParam(routeRegExp, route));
-        //console.log(routeRegExp, route);
-        //console.log(_getParam(routeRegExp, route));
+        _runCallback(_getParam(routeRegExp, route));
     }
 
     function router (obj) {
@@ -91,7 +93,6 @@
         _bindPopStateEvent();
 
         _testUrl(_getSegment());
-        //console.log(arr);
     }
     // {toggle: true, replace: ture}
     function navigate (route, title, option) {
@@ -109,6 +110,9 @@
         }
         if(_testType('Object', option) && !option.hasOwnProperty('replace')){
             option.replace = false;
+        }
+        if(_testType('Object', option) && !option.hasOwnProperty('replace')){
+            option.toggle = false;
         }
         if(!_testType('Object', option)){
             option = {};
