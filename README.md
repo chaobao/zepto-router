@@ -22,26 +22,21 @@ $.router(option);
     routes: 路径对象
 
 #### routes 语法
+routes有特定的语法，类似于Backbone.Router的语法<br />
+routes是一个JavaScript对像<br />
+routes属性名为一个指定语法字符串，router插件在运行时将其解析成正则表达式。<br />
+解析规则如下：<br />
+规则一：`":part"`匹配单个路径<br />
+规则二：``"(/:type)"`匹配可选单个路径<br />
+规则三：`"p:page"`匹配组合单个路径<br />
+目前路由规则只有三个，规则可以互相组合。<br />
+组合例子：<br />
+1.路由`":part"`可以匹配`man`<br />
+2.路由`"part(/:type)"`可以匹配路径`part`或者路径`part/man`<br />
+3.路由`"part/:type"`可以匹配路径`part/man`<br />
+4.路由`"part/p:page"`可以匹配路径`part/p2`<br />
 
-routes有特定的语法，类似于Backbone.Router的语法
-
-routes是一个JavaScript对像
-
-routes属性名为一个指定语法字符串，router插件在运行时将其解析成正则表达式。
-
-解析规则如下：
-
-规则一：`":part"`匹配单个路径
-规则二：``"(/:type)"`匹配可选单个路径
-规则三：`"p:page"`匹配组合单个路径
-目前路由规则只有三个，规则可以互相组合。
-组合例子：
-1.路由`":part"`可以匹配`man`
-2.路由`"part(/:type)"`可以匹配路径`part`或者路径`part/man`
-3.路由`"part/:type"`可以匹配路径`part/man`
-4.路由`"part/p:page"`可以匹配路径`part/p2`
-
-+routes属性值为匹配路径成功后的回调函数，一个路径的回调函数由第一个复合条件的路由规则决定
+routes属性值为匹配路径成功后的回调函数，一个路径的回调函数由第一个复合条件的路由规则决定<br />
 
 ### 接口调用
 ```javascript
@@ -49,6 +44,7 @@ $.navigate(segment, title, option);
 ```
 
 #### 参数
+```
 @segment
     路径片段，符合routes的路由规则
 @title
@@ -56,7 +52,7 @@ $.navigate(segment, title, option);
 @option
     replace: 路径是否替代当前的路径
     toggle: 未知
-
+```
 ### 例子
 ```javascript
     // 定义路由规则以及回调函数
